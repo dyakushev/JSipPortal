@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New Trunk</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+    <form th:action="@{/trunk/new}" method="post" class="mt-5 ml-5" th:object="${trunk}">
+        <div class="form-group row ">
+            <label for="inputIpaddress" class="col-sm-2 col-form-label">IP address</label>
+            <div class="col-sm-5">
+                <input th:class="'form-control' + (${#fields.hasErrors('ipaddress')} ? ' is-invalid' : '')"
+                       type="text"
+                       th:placeholder="'IP address'"
+                       id="inputIpaddress"
+                       th:field="*{ipaddress}"
+                       name="ipaddress"
+                       th:value="${ipaddress}">
+                <!--  <div th:if="${#fields.hasErrors('username')}" class="error">-->
+                <div class="invalid-feedback">
+                    <div th:if="${#fields.hasErrors('ipaddress')}" th:errors="*{ipaddress}"></div>
+                </div>
+                <!-- </div>-->
+            </div>
+        </div>
+
+
+        <div class="form-group row ">
+            <label for="inputPort" class="col-sm-2 col-form-label">Port</label>
+            <div class="col-sm-5">
+                <input th:class="'form-control' + (${#fields.hasErrors('port')} ? ' is-invalid' : '')"
+                       type="text"
+                       th:placeholder="5060"
+                       id="inputPort"
+                       th:field="*{port}"
+                       name="port"
+                       th:value="${port}">
+                <div class="invalid-feedback">
+                    <div th:if="${#fields.hasErrors('port')}" th:errors="*{port}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row mt-5">
+            <label for="inputDescription" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-5">
+                <input th:class="'form-control' + (${#fields.hasErrors('description')} ? ' is-invalid' : '')"
+                       type="description"
+                       id="inputDescription"
+                       placeholder="Description"
+                       th:field="*{description}"
+                       name="description">
+                <div class="invalid-feedback">
+                    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group row mt-5">
+            <label for="inputActive" class="col-sm-2 col-form-label">Active</label>
+            <div class="col-sm-5">
+                <input th:class="form-control"
+                       type="checkbox"
+                       id="inputActive"
+                       placeholder="Is Active"
+                       th:field="*{active}"
+                       name="active"
+                       value="1">
+            </div>
+            <div class="col-sm-5">
+                <input type="hidden" name="active" value="0">
+            </div>
+        </div>
+
+        <div class="form-group row mt-5">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

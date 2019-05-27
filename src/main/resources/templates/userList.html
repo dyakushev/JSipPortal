@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <head>
+
+        <title>User list</title>
+        <div th:replace="fragments/header :: header-css"></div>
+    </head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+List of users
+<table class="table">
+    <thead>
+    <tr>
+        <!--    <th> Id</th>-->
+        <th scope="col"> Username</th>
+        <th scope="col"> Role</th>
+        <th scope="col"> Edit</th>
+        <th scope="col"> Remove</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${#lists.isEmpty(users)}">
+        <td colspan="2"> No users Available</td>
+    </tr>
+    <tr th:each="user : ${users}">
+        <!-- <td><span th:text="${trunk.id}"> Id </span></td>-->
+        <td><span th:text="${user.username}" th:align="center"> Username </span></td>
+        <td><span th:text="${#strings.listJoin(user.roles, ',')}"></span></td>
+        <!--<td><span th:each="role : ${user.roles}" th:text="${role}" th:align="center"></span></td>-->
+        <td><a th:href="@{'/user/edit/'+${user.id}}">edit</a></td>
+        <td><a th:href="@{'/user/remove/'+${user.id}}">remove</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

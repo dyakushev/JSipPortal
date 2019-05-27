@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Trunk list</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+
+<div>
+    <form method="post" th:action="@{/trunk}">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" th:value="${filter}" aria-label="Recipient's username"
+                   name="filter"
+                   aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <!--    <th> Id</th>-->
+        <th scope="col"> IP Address</th>
+        <th scope="col"> Port</th>
+        <th scope="col"> Description</th>
+        <th scope="col"> Is active</th>
+        <th scope="col"> Edit</th>
+        <th scope="col"> Remove</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${#lists.isEmpty(trunks)}">
+        <td colspan="2"> No Trunks Available</td>
+    </tr>
+    <tr th:each="trunk : ${trunks}">
+        <!-- <td><span th:text="${trunk.id}"> Id </span></td>-->
+        <td><span th:text="${trunk.ipaddress}" th:align="center"> IP Address </span></td>
+        <td><span th:text="${trunk.port}" th:align="center"> Port </span></td>
+        <td><span th:text="${trunk.description}" th:align="center"> Description </span></td>
+        <td><span th:text="${trunk.active}" th:align="center"> Is active </span></td>
+        <td><a th:href="@{'/trunk/edit/'+${trunk.id}}">edit</a></td>
+        <td><a th:href="@{'/trunk/remove/'+${trunk.id}}">remove</a></td>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/trunk/new}" method="get">
+    <div class="form-group row">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">New trunk</button>
+    </div>
+</form>
+<!--
+<div class="card-header" id="headingOne">
+    <h5 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#newTrunk"
+                aria-expanded="true" aria-controls="newTrunk">
+            New trunk
+        </button>
+    </h5>
+</div>
+<div id="newTrunk" class="collapse show" aria-labelledby="headingOne">
+    <div class="card-body">
+        <form method="post" th:action="@{/trunk/add}" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Введите IP адрес транка" name="ipaddress">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Введите SIP порт" name="port">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Введите описание" name="description">
+                </div>
+                <div class="col">
+                    <input class="form-control" type="checkbox" id="gridCheck" placeholder="Активен" value="1"
+                           name="active">
+
+                </div>
+                <div class="col">
+                    <input type="hidden" name="active" value="0">
+                </div>
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </div>
+        </form>
+    </div>
+</div>-->
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<table class="table">
+    <thead>
+    <tr>
+        <!--    <th> Id</th>-->
+        <th scope="col"> Username</th>
+        <th scope="col"> Domain</th>
+        <th scope="col"> Edit</th>
+        <th scope="col"> Remove</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${#lists.isEmpty(accounts)}">
+        <td colspan="2"> No Accounts Available</td>
+    </tr>
+    <tr th:each="account : ${accounts}">
+        <!-- <td><span th:text="${trunk.id}"> Id </span></td>-->
+        <td><span th:text="${account.username}" th:align="center"> Username </span></td>
+        <td><span th:text="${account.domain}" th:align="center"> Domain </span></td>
+        <td><a th:href="@{'/account/edit/'+${account.id}}">edit</a></td>
+        <td><a th:href="@{'/account/remove/'+${account.id}}">remove</a></td>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/account/new}" method="get">
+    <div class="form-group row">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">New account</button>
+    </div>
+</form>
+</body>
+</html>

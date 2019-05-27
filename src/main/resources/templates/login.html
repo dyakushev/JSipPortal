@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Login</title>
+
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+
+<form class="form-group mx-auto"
+      style="width: 300px;"
+      th:action="@{/login}"
+      method="post"
+      th:object="${loginform}">
+    <div class="form-group mt-5">
+        <label for="username">Username</label>
+
+        <input th:class="'form-control' + (${#fields.hasErrors('username')} ? ' is-invalid' : '')"
+               type="text"
+               id="username"
+               name="username"
+               th:field="*{username}"
+               th:value="${username}"
+               placeholder="Enter username">
+        <div class="invalid-feedback">
+            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+        </div>
+        <div>
+            <script>
+                grecaptcha.ready(function () {
+                    grecaptcha.execute('6Lf5s34UAAAAAIRGJi6jxPpkW2B-U2RSwlaZpJ5G', {action: 'action_name'})
+                        .then(function (token) {
+// Verify the token on the server.
+                        });
+                });
+            </script>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input th:class="'form-control' + (${#fields.hasErrors('password')} ? ' is-invalid' : '')"
+               type="password"
+               id="password"
+               placeholder="Enter password"
+               name="password"
+               th:field="*{password}"
+               th:value="${password}">
+        <div class="invalid-feedback">
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+</form>
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

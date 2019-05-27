@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account New</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+    <form th:action="@{/account/new}" method="post" class="mt-5 ml-5" th:object="${account}">
+        <div class="form-group row ">
+            <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+            <div class="col-sm-5">
+                <input th:class="'form-control' + (${#fields.hasErrors('username')} ? ' is-invalid' : '')"
+                       type="text"
+                       th:placeholder="Username"
+                       id="inputUsername"
+                       th:field="*{username}"
+                       name="username"
+                       th:value="${username}">
+                <!--  <div th:if="${#fields.hasErrors('username')}" class="error">-->
+                <div class="invalid-feedback">
+                    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                </div>
+                <!-- </div>-->
+            </div>
+        </div>
+
+
+        <div class="form-group row ">
+            <label for="inputDomain" class="col-sm-2 col-form-label">Domain</label>
+            <div class="col-sm-5">
+                <input th:class="'form-control' + (${#fields.hasErrors('domain')} ? ' is-invalid' : '')"
+                       type="text"
+                       th:placeholder="Domain"
+                       id="inputDomain"
+                       th:field="*{domain}"
+                       name="domain"
+                       th:value="${domain}">
+                <div class="invalid-feedback">
+                    <div th:if="${#fields.hasErrors('domain')}" th:errors="*{domain}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row mt-5">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-5">
+                <input th:class="'form-control' + (${#fields.hasErrors('password')} ? ' is-invalid' : '')"
+                       type="password"
+                       id="inputPassword"
+                       placeholder="Password"
+                       th:field="*{password}"
+                       name="password">
+                <div class="invalid-feedback">
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group row mt-5">
+            <label for="inputPassword2" class="col-sm-2 col-form-label">Confirm password</label>
+            <div class="col-sm-5">
+                <input th:class="'form-control' + (${#fields.hasErrors('password2')} ? ' is-invalid' : '')"
+                       type="password"
+                       id="inputPassword2"
+                       placeholder="Confirm password"
+                       th:field="*{password2}"
+                       name="password2">
+                <div class="invalid-feedback">
+                    <div th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row mt-5">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

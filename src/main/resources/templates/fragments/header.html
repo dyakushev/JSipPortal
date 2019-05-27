@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:fragment="header-css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+              crossorigin="anonymous">
+        <script src='https://www.google.com/recaptcha/api.js?render=6Lf5s34UAAAAAIRGJi6jxPpkW2B-U2RSwlaZpJ5G'></script>
+    </div>
+
+</head>
+<body>
+<div th:fragment="header">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">JSIP Portal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>;
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item dropdown">
+
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkConfiguration"
+                           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Configuration
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkConfiguration">
+                            <a class="dropdown-item" href="/trunk">Trunk</a>
+                            <a class="dropdown-item" href="/account">Account</a>
+                            <!--   <div class="dropdown-divider"></div>-->
+                        </div>
+
+
+                    </li>
+                </div>
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <li class="nav-item dropdown">
+
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdministration"
+                           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Administration
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkAdministration">
+                            <a class="dropdown-item" href="/user">User</a>
+                        </div>
+
+                    </li>
+                </div>
+            </ul>
+        </div>
+
+        <div sec:authorize="isAuthenticated()"><!-- class="col-mr-offset-3">-->
+
+            <a th:href="@{/user/edit/{id} (id=${#authentication.getPrincipal().getId()})}" class="mr-sm-2">
+                <span sec:authentication="name">Bob</span>
+            </a>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+
+            <form th:action="@{/logout}" method="post">
+                <input class="btn btn-primary" type="submit" value="Log out">
+            </form>
+        </div>
+
+    </nav>
+</div>
+</body>
+</html>
